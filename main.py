@@ -15,8 +15,6 @@ class Player(pygame.sprite.Sprite):
 		self.jumping = False
 
 	def jump(self):
-		print("Jumping: %s" % self.jumping)
-
 		if not self.jumping:
 			self.yVel = -15
 			self.jumping = True
@@ -30,24 +28,26 @@ class Player(pygame.sprite.Sprite):
 				self.yVel = 0
 				self.jumping = False
 
-import pygame
+def main():
+	pygame.init()
+	screen = pygame.display.set_mode((600, 300))
+	player = Player()
+	playerSprites = pygame.sprite.RenderPlain((player))
+	clock = pygame.time.Clock()
 
-pygame.init()
-
-screen = pygame.display.set_mode((600, 300))
-
-player = Player()
-playerSprites = pygame.sprite.RenderPlain((player))
-
-while True:
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT: 
-			exit()
-		if event.type == KEYDOWN:
-			if event.key == K_SPACE:
-				player.jump()
+	while True:
+		clock.tick(45)
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT: 
+				exit()
+			if event.type == KEYDOWN:
+				if event.key == K_SPACE:
+					player.jump()
 	
 		screen.fill((0, 0, 0))
 		playerSprites.draw(screen)
 		playerSprites.update()
 		pygame.display.flip()
+
+if __name__ == "__main__":
+	main()
